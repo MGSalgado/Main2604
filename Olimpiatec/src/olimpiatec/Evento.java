@@ -4,33 +4,32 @@
  * and open the template in the editor.
  */
 package olimpiatec;
-
+import java.util.*;
 /**
  *
  * @author Miguel
  */
 public class Evento {
     private String nombreEvento;
-    private char genero;
     private String clave;
     private String responsable;
-    private final double limiteAlumnos;
+    private ArrayList<Alumno> alumnosInscritos;
 
-    public Evento(double limiteAlumnos) {
-        this.limiteAlumnos = limiteAlumnos;
-        this.nombreEvento = "";
-        this.genero = 'x';
-        this.clave = "";
-        this.responsable = "";
-    }
-
-    public Evento(String nombreEvento, char genero, String clave, String responsable, double limiteAlumnos) {
+    public Evento(String nombreEvento, String clave, String responsable) {
         this.nombreEvento = nombreEvento;
-        this.genero = genero;
         this.clave = clave;
         this.responsable = responsable;
-        this.limiteAlumnos = limiteAlumnos;
+        this.alumnosInscritos= new ArrayList<>();
     }
+    
+    public Evento(String nombreEvento, String clave, String responsable, ArrayList<Alumno> alumnosInscritos) {
+        this.nombreEvento = nombreEvento;
+        this.clave = clave;
+        this.responsable = responsable;
+        this.alumnosInscritos= alumnosInscritos;
+    }
+    
+    
 
     public String getNombreEvento() {
         return nombreEvento;
@@ -40,13 +39,6 @@ public class Evento {
         this.nombreEvento = nombreEvento;
     }
 
-    public char getGenero() {
-        return genero;
-    }
-
-    public void setGenero(char genero) {
-        this.genero = genero;
-    }
 
     public String getClave() {
         return clave;
@@ -63,10 +55,60 @@ public class Evento {
     public void setResponsable(String responsable) {
         this.responsable = responsable;
     }
-
-    @Override
+    
+    public ArrayList<Alumno> getAlumnos(){
+        return alumnosInscritos;
+    }
+    
+    public void setAlumnosInscritos (ArrayList<Alumno> alumnosInscritos){
+        this.alumnosInscritos=alumnosInscritos;
+    }
+    
+    public boolean addAlumno (Alumno alumnosInscritos){
+        if(!findMatricula(alumnosInscritos.getMatricula())){
+            this.alumnosInscritos.add(alumnosInscritos);
+            return true;
+        }else{return false;}
+            }
+    
+    public boolean addAlumno(String nombre, String apellido, String matricula, String carrera){
+        if (!findMatricula(matricula)){
+            this.alumnosInscritos.add(new Alumno(nombre,apellido,matricula,carrera));
+            return true;
+        }else{return false;}
+    }
+    
+    public boolean removeAlumno(String matricula){
+        if (findMatricula(matricula)){
+            ListIterator it = this.alumnosInscritos.listIterator();
+            while (it.hasNext()){
+                Alumno temp = (Alumno) it.next();
+                
+                if(temp.getMatricula().equals(matricula)){
+                    it.remove();
+                    return true;
+                }
+            }return true;
+        }else{return false;}
+    }
+    
+        public boolean removeAlumno(Alumno alumnos){
+            return removeAlumno (alumnos.getMatricula());
+        }
+        
+    public boolean findMatricula(String matricula){
+        if(!this.alumnosInscritos.isEmpty()){
+            for(Alumno tempAlumno : alumnosInscritos){
+                if(tempAlumno.getMatricula().equals(matricula)){
+                    return true;
+                }
+            }
+        }return false;
+    }
+    
+        @Override
     public String toString() {
-        return "Evento{" + "nombreEvento=" + nombreEvento + ", genero=" + genero + ", clave=" + clave + ", responsable=" + responsable + ", limiteAlumnos=" + limiteAlumnos + '}';
+        return "Evento{" + "nombreEvento=" + nombreEvento +  ", clave=" + clave + ", responsable=" + responsable +  '}';
     }
     
     
