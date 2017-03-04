@@ -9,49 +9,49 @@ import java.util.*;
  *
  * @author Miguel
  */
-public class Customer {
+public class Customer { //atributos
      private String name;
     private ArrayList<Double> transactions;
     
-    public Customer(String name){
+    public Customer(String name){ //constructor a partir de nombre
         this.name=name;
         ArrayList<Double> transactions= new ArrayList<>();
        this.transactions=transactions;
     }
 
-    public Customer(String name, double amount){
+    public Customer(String name, double amount){ //Constructor a partir de nombre y cantidad de transacción
         this.name = name;
         ArrayList<Double>transactions=new ArrayList<>();
         this.transactions=transactions;
         this.transactions.add(amount);
     }
-    public Customer(String name, ArrayList<Double> transactions) {
+    public Customer(String name, ArrayList<Double> transactions) { //Constructor a partir de nombres y un ArrayList de transacciones
         this.name = name;
         this.transactions = transactions;
     }
 
-    public String getName() {
+    public String getName() { //Getter de nombre
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) { //Setter de nombre
         this.name = name;
     }
 
-    public ArrayList<Double> getTransactions() {
+    public ArrayList<Double> getTransactions() { //getter de transacciones
         return transactions;
     }
 
-    public void setTransactions(ArrayList<Double> transactions) {
+    public void setTransactions(ArrayList<Double> transactions) { //setter de transacciones(ArrayList)
         this.transactions = transactions;
     }
     
-    public void setTransactions(double amount){
+    public void setTransactions(double amount){ //setter de transaccion, podría ser un "add amount"
         this.transactions.add(amount);
     }
     
     @Override
-    public String toString(){
+    public String toString(){ //metodo para devolver valores del arrayList
         return this.name+ transactions.toString();
     }
 }
